@@ -1,11 +1,47 @@
 import { Component } from '@angular/core';
+/*import { Response } from "@angular/http";*/
+
+import { HttpService } from "./http.service";
+
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  title = 'app works!';
+  items: any[] = [];
+  asyncString = this.httpService.getData();
+
+  constructor(private httpService: HttpService){}
+
+/*  ngOnInit(){
+    this.httpService.getData()
+      .subscribe(
+/!*      (data: Response) => console.log(data.json())*!/
+        (data: any) => console.log(data)
+      );
+  }*/
+
+  onSubmit(username: string, email: string){
+    this.httpService.sendData({username: username, email: email})
+      .subscribe(
+          data => console.log(data),
+          error => console.log(error)
+      );
+  }
+
+  onGetData(){
+    this.httpService.getOwnData()
+      .subscribe(
+          data => {
+            const myArray = [];
+            for (let key in data){
+              myArray.push(data[key]);
+            }
+            this.items = myArray;
+          }
+      );
+  }
+
 }
