@@ -5,7 +5,6 @@ import { HttpService } from "./http.service";
 
 
 @Component({
-  moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
